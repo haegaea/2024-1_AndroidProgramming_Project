@@ -19,9 +19,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button connectBtn = (Button) findViewById(R.id.connect);
+        Button connectBtn = (Button) findViewById(R.id.connectBtn);
+        Button introBtn = (Button) findViewById(R.id.intro);
 
-        connectBtn.setOnClickListener(new View.OnClickListener() {
+
+        introBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);

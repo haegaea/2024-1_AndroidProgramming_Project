@@ -7,25 +7,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4169E1"
+        app:title="RemoteSwitch"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"/>
+            android:text="타임로그 들어갈 부분"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="2"
         android:orientation="horizontal">
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"/>
+            android:layout_weight="4">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -33,21 +41,31 @@
             android:orientation="vertical">
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="연결"
-                android:id="@+id/connect"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="사용방법"/>
+                android:layout_height="60dp"
+                android:text="사용방법"
+                android:id="@+id/intro"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_height="60dp"
+        android:orientation="horizontal">
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text=" ip주소 : "
+            android:gravity="center"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="7"
+            android:id="@+id/editext"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:id="@+id/connectBtn"
+            android:text="연결"/>
     </LinearLayout>
 </LinearLayout>

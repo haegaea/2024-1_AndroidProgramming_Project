@@ -7,25 +7,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity2">
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-        <Button
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:id="@+id/goback"
-            android:text="뒤로가기"/>
-    </LinearLayout>
-    <LinearLayout
+        android:layout_weight="9"
+        android:id="@+id/intro"
+        android:textSize="15dp"
+        android:text="RemoteSwitch\n1. 작동시키고자 하는 스위치의 ip주소를 입력한다.\n2. 연결버튼을 누른다.\n3. 스위치가 작동한다.\n\n 부가기능 설명\n1. ip주소 입력 후 주소저장 버튼을 누르면 ip주소가 저장된다.\n2. 저장된 ip주소를 길게 누르면 삭제할 수 있다.\n3. 저장된 ip주소를 누르면 자동으로 해당 ip주소가 입력된다."/>
+    <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/intro"
-            android:text="연결방법\n1.상단 입력란에 ip주소를 입력합니다.\n2.연결버튼을 누릅니다.\n3.원격스위치가 작동합니다.\n\n"/>
-    </LinearLayout>
+        android:layout_weight="1"
+        android:id="@+id/goback"
+        android:text="뒤로가기"/>
 </LinearLayout>

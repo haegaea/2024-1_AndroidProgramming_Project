@@ -19,8 +19,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="타임로그 들어갈 부분"/>
+            android:id="@+id/timelog"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="#4169E1"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,20 +37,32 @@
             android:layout_weight="4">
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:id="@+id/list"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="bottom">
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="사용방법"
-                android:id="@+id/intro"/>
+                android:id="@+id/introbtn"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="주소저장"
+                android:id="@+id/savebtn"/>
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:background="#4169E1"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -54,7 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text=" ip주소 : "
+            android:text=" ip주소입력 : "
             android:gravity="center"/>
         <EditText
             android:layout_width="0dp"

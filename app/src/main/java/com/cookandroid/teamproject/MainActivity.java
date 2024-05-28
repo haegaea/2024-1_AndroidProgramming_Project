@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                                 HttpURLConnection connection = (HttpURLConnection) Url.openConnection();
 
                                 connection.setRequestMethod("GET"); // GET방식으로 요청
-                                connection.setConnectTimeout(5000); // 연결 지연 5초까지 기다림
+                                connection.setConnectTimeout(2000); // 연결 지연 2초까지 기다림
 
                                 BufferedReader reader;
 

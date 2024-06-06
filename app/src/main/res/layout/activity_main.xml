@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,19 +11,20 @@
         android:layout_height="wrap_content"
         android:background="#4169E1"
         app:title="RemoteSwitch"/>
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <TextView
+        <LinearLayout
+            android:id="@+id/logContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/timelog"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+    </ScrollView>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_centerInParent="true"
         android:background="#4169E1"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +61,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_centerInParent="true"
         android:background="#4169E1"/>
     <LinearLayout
         android:layout_width="match_parent"

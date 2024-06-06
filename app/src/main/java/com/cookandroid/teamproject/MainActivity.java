@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,28 +27,35 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> ipList = new ArrayList<>();
+    StringBuilder logBuilder = new StringBuilder();
+    ScrollView scrollView;
+    LinearLayout logContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button connectBtn = (Button) findViewById(R.id.connectBtn);
-        Button saveBtn = (Button) findViewById(R.id.savebtn);
-        Button introBtn = (Button) findViewById(R.id.introbtn);
-        EditText editText = (EditText) findViewById(R.id.editext);
-        TextView timeLog = (TextView) findViewById(R.id.timelog);
+        scrollView = findViewById(R.id.scrollView);
+        logContainer = findViewById(R.id.logContainer);
+        Button connectBtn = findViewById(R.id.connectBtn);
+        Button saveBtn = findViewById(R.id.savebtn);
+        Button introBtn = findViewById(R.id.introbtn);
+        EditText editText = findViewById(R.id.editext);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>( // 어댑터 생성
                 this,
                 android.R.layout.simple_list_item_1,
                 ipList
         );
-        ListView listView = (ListView) findViewById(R.id.list); // 리스트뷰 생성
+        ListView listView = findViewById(R.id.list); // 리스트뷰 생성
         listView.setAdapter(arrayAdapter); // 리스뷰와 어댑터 연결
 
         introBtn.setOnClickListener(new View.OnClickListener() { // 다른 액티비티로 전환 (사용방법)
@@ -64,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         return; // 메소드 탈출 (저장하지 않음)
                     }
                 }
-                if(editText.getText().toString().equals("") == false) {
+                if(!editText.getText().toString().equals("")) {
                     ipList.add(editText.getText().toString()); // 리스트에 데이터 저장
                     arrayAdapter.notifyDataSetChanged(); // 어댑터에 반영
                 }
@@ -76,7 +85,14 @@ public class MainActivity extends AppCompatActivity {
         connectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editText.getText().toString().equals("") == false) {
+                if(!editText.getText().toString().equals("")) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            appendLog("Connecting...", android.R.color.holo_orange_light);
+                        }
+                    });
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -96,16 +112,18 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             Toast.makeText(getApplicationContext(), "연결 성공", Toast.LENGTH_SHORT).show(); // 연결 성공했다고 띄움
-                                            // 여기에 연결 성공 시 타임로그 띄우는 거 구현하시면 됨돠!
+                                            appendLog("Successfully Connected", android.R.color.holo_green_light);
                                         }
                                     });
+                                } else {
+                                    throw new IOException("HTTP error code: " + resCode);
                                 }
                             } catch (Exception e) { // 예외 발생시
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Toast.makeText(getApplicationContext(), "ip주소를 다시 확인하십시오.", Toast.LENGTH_SHORT).show(); // 연결 실패 메시지 띄움
-                                        // 여기에 에러 발생 시 타임로그 띄우는 거 구현하시면 됨돠!
+                                        appendLog("Connection Failed", android.R.color.holo_red_light);
                                     }
                                 });
                             }
@@ -127,6 +145,32 @@ public class MainActivity extends AppCompatActivity {
                 ipList.remove(position); // postion값에 따라 눌린 item 지움
                 arrayAdapter.notifyDataSetChanged(); // 어댑터에 지워진 데이터 업데이트
                 return false;
+            }
+        });
+    }
+
+    private void appendLog(String message, int colorResId) {
+        String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        String formattedMessage = String.format("[%s] %s", timestamp, message);
+
+        TextView logEntry = new TextView(this);
+        logEntry.setText(formattedMessage);
+        logEntry.setTextColor(getResources().getColor(colorResId));
+
+        View separator = new View(this);
+        separator.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1
+        ));
+        separator.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+
+        logContainer.addView(logEntry);
+        logContainer.addView(separator);
+
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_DOWN);
             }
         });
     }
